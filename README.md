@@ -1,4 +1,4 @@
-# Windows/x86 - Bind TCP shellcode / Dynamic Null-Byte Free PEB & EDT method (419 bytes
+# Windows/x86 - Bind TCP shellcode / Dynamic Null-Byte Free PEB & EDT method (419 bytes)
  
 ## Description: 
 
