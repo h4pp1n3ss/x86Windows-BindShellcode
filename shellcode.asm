@@ -1,6 +1,6 @@
 ; Name: Windows/x86 - Bind TCP shellcode / Dynamic Null-Byte Free PEB & EDT method (419 bytes)
 ; Author: h4pp1n3ss
-; Date: Wed 10/05/2021
+; Date: Mon 10/05/2021
 ; Tested on: Microsoft Windows [Version 10.0.19042.1237]
 
 ; Description: 
