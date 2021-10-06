@@ -1,8 +1,8 @@
-# Windows/x86 - Bind TCP shellcode / Dynamic Null-Byte Free PEB & EDT method (419 bytes)
+# Windows/x86 - Bind TCP shellcode / Dynamic PEB & EDT method null-free (415 bytes)
  
 ## Description: 
 
-This a bind tcp shellcode that open a listen socket on port 1337. In order to accomplish this task the shellcode uses
+This a bind tcp shellcode that open a listen socket on 0.0.0.0 and port 1337. In order to accomplish this task the shellcode uses
 the PEB method to locate the baseAddress of the required module and the Export Directory Table to locate symbols. 
 Also the shellcode uses a hash function to gather dynamically the required symbols without worry about the length. 
 
@@ -60,17 +60,16 @@ int bind(
 [listen function](https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-listen)
 
 ```c
-int bind(
-  SOCKET         s,
-  const sockaddr *addr,
-  int            namelen
+int WSAAPI listen(
+  SOCKET s,
+  int    backlog
 );
 ```
 
 
 ### WSAGetLastError function (winsock.h)
 
-[WSAGetLastError function](https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-listen)
+[WSAGetLastError function](https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-wsagetlasterror)
 
 ```c
 int WSAGetLastError();
@@ -79,7 +78,7 @@ int WSAGetLastError();
 
 ### accept function (winsock2.h)
 
-[WSAGetLastError function](https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-accept)
+[accept function](https://docs.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-accept)
 
 ```c
 SOCKET WSAAPI accept(
